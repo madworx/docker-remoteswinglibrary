@@ -1,0 +1,4 @@
+USER root
+RUN apt-get install -y libpython3-dev build-essential imagemagick
+RUN pip3 install vncdotool
+USER robot

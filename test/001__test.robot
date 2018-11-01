@@ -8,6 +8,5 @@ Test
    Select Main Window
    Take Screenshot
    Push Button        OK
-   Take Screenshot
    Dialog Should Be Open    Dialup
-   
+   Take Screenshot
