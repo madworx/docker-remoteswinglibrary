@@ -3,7 +3,7 @@ Library           RemoteSwingLibrary    debug=True
 Library           Process
 
 *** Test Cases ***
-Test
+Start application and take a screenshot via VNC
    Start Application  Test  java -cp /home/robot MinimalSwingApplication   30    close_security_dialogs=True
    Select Main Window
    Push Button        OK
