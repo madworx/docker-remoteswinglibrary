@@ -1,0 +1,20 @@
+sudo: required
+
+language: perl
+
+services:
+  - docker
+
+before_install:
+   - source <(curl https://raw.githubusercontent.com/madworx/cd-ci-glue/master/src/cd-ci-glue.bash)
+
+install:
+  - true
+
+script:
+  - make test
+
+after_success:
+  - is_travis_master_push &&
+    dockerhub_push_image madworx/remoteswinglibrary &&
+    dockerhub_set_description madworx/remoteswinglibrary README.md

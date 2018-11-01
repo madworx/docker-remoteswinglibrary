@@ -12,9 +12,9 @@ ARG DEPENDENCIES="curl python3-pip python3-setuptools  \
 
 RUN sed -e "s#archive.ubuntu.com#${APT_MIRROR}#g" \
         -i /etc/apt/sources.list                  \
-    && apt-get update -y
+    && apt-get update -qqy
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y              \
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y -qq          \
                                    --no-install-recommends \
                                    install ${DEPENDENCIES}
 
