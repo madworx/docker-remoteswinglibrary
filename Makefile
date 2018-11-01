@@ -7,6 +7,8 @@ test:	build-docker
 	javac test/MinimalSwingApplication.java
 	cat Dockerfile Dockerfile.test | docker build -t test -f - .
 	rm -rf test/output
+	mkdir test/output
+	chmod 777 test/output
 	mkdir -p test/.vnc
 	echo jettehemlik > test/.vnc/passwdfile
 	docker run --rm -it -p 5900:5900     \
