@@ -1,7 +1,7 @@
 all:	build-docker
 
 build-docker:
-	docker build -t madworx/docker-remoteswinglibrary .
+	docker build -t madworx/remoteswinglibrary .
 
 test:	build-docker
 	javac test/MinimalSwingApplication.java
