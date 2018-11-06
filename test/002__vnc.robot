@@ -8,5 +8,10 @@ Start application and take a screenshot via VNC
    Select Main Window
    Push Button        OK
    Dialog Should Be Open    Dialup
+   Select Dialog            Dialup
+
    ${result} =     Run Process   ./vnccapture.py   timeout=10
    Log Many	stdout: ${result.stdout}	stderr: ${result.stderr}
+
+   Push Button        OK
+   Close Window       Test Frame

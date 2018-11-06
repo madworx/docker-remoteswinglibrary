@@ -1,7 +1,10 @@
 all:	build-docker
 
 build-docker:
-	docker build -t madworx/remoteswinglibrary .
+	docker build -t madworx/remoteswinglibrary:latest .
+
+build-docker-slim:
+	docker build -t madworx/remoteswinglibrary:slim --build-arg FLAVOUR=slim .
 
 test:	build-docker
 	javac test/MinimalSwingApplication.java
@@ -12,7 +15,7 @@ test:	build-docker
 	mkdir -p test/.vnc
 	echo jettehemlik > test/.vnc/passwdfile
 	docker run --rm -it -p 5900:5900     \
-      -e RESOLUTION=640x480x16          \
+      -e RESOLUTION=640x480             \
       -v $$(pwd)/test:/home/robot       \
       test
 
