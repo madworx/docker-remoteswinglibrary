@@ -32,5 +32,7 @@ xvfb-run -s "-screen 0 ${RESOLUTION}" -a bash -c "
   ffmpeg -loglevel panic -hide_banner -framerate 25 -f x11grab -i \${DISPLAY} output/video-capture.mpg &
   x11vnc -nolookup -forever -usepw </dev/null >/dev/null 2>&1 & 
   /usr/local/bin/robot -d output '$@'
+  ROBOT_STATUS=\$?
   kill \$(jobs -p)
+  exit \$ROBOT_STATUS
 "
