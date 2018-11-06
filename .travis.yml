@@ -16,5 +16,6 @@ script:
 
 after_success:
   - is_travis_master_push &&
-    dockerhub_push_image madworx/remoteswinglibrary &&
+    dockerhub_push_image madworx/remoteswinglibrary:latest &&
+    dockerhub_push_image madworx/remoteswinglibrary:slim   &&
     dockerhub_set_description madworx/remoteswinglibrary README.md

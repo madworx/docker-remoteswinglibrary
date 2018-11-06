@@ -1,12 +1,14 @@
 all:	build-docker
 
-build-docker:
+docker-images:	docker-image docker-image-slim
+
+docker-image:
 	docker build -t madworx/remoteswinglibrary:latest .
 
-build-docker-slim:
+docker-image-slim:
 	docker build -t madworx/remoteswinglibrary:slim --build-arg FLAVOUR=slim .
 
-test:	build-docker
+test:	docker-images
 	javac test/MinimalSwingApplication.java
 	cat Dockerfile Dockerfile.test | docker build -t test -f - .
 	rm -rf test/output
