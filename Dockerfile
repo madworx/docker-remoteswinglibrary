@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:bionic AS build
 
 ARG FLAVOUR=""
 ARG APT_MIRROR="ftp.acc.umu.se"
@@ -13,8 +13,6 @@ RUN sed -e "s#archive.ubuntu.com#${APT_MIRROR}#g" \
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y -qq          \
                                    --no-install-recommends \
                                    install ${DEPENDENCIES}
-
-MAINTAINER Martin Kjellstrand <martin.kjellstrand@madworx.se>
 
 ARG RSL_REPO="https://github.com/madworx/remoteswinglibrary"
 ARG RSL_VERSION="2.2.2mwx3"
@@ -38,8 +36,10 @@ RUN apt-get autoremove -y                     \
 RUN useradd -m robot
 USER robot
 
+FROM ubuntu:bionic
+MAINTAINER Martin Kjellstrand <martin.kjellstrand@madworx.se>
+COPY --from=build / /
 ENV RESOLUTION="1024x768x16"
 ENV PYTHONPATH=
-
 COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
