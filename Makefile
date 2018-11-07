@@ -1,4 +1,4 @@
-all:	build-docker
+all:	docker-image docker-image-slim
 
 docker-images:	docker-image docker-image-slim
 
@@ -21,4 +21,5 @@ test:	docker-images
       -v $$(pwd)/test:/home/robot       \
       test
 
-.PHONY: test build-docker
+.PHONY: test docker-image docker-image-slim
+

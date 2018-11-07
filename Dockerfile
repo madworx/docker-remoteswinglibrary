@@ -1,5 +1,7 @@
 FROM ubuntu:bionic AS build
 
+MAINTAINER Martin Kjellstrand <martin.kjellstrand@madworx.se>
+
 ARG FLAVOUR=""
 ARG APT_MIRROR="ftp.acc.umu.se"
 ARG DEPENDENCIES="curl python3-pip python3-setuptools  \
@@ -26,20 +28,18 @@ RUN pip3 install -r requirements.txt && rm requirements.txt
 
 RUN if [ "${FLAVOUR}" != "slim" ] ; then \
       apt-get install -y ffmpeg --no-install-recommends ; \
-    fi 
+    fi
 
 RUN apt-get autoremove -y                     \
     && apt-get clean                          \
     && sed -i 's/^/#/' /etc/apt/sources.list  \
-    && apt-get update
+    && apt-get update                         \
+    && sed -i 's/^#//' /etc/apt/sources.list
 
 RUN useradd -m robot
 USER robot
 
-FROM ubuntu:bionic
-MAINTAINER Martin Kjellstrand <martin.kjellstrand@madworx.se>
-COPY --from=build / /
-ENV RESOLUTION="1024x768x16"
+ENV RESOLUTION="1024x768x24"
 ENV PYTHONPATH=
 COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
