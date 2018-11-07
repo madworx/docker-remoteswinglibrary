@@ -41,5 +41,6 @@ USER robot
 
 ENV RESOLUTION="1024x768x24"
 ENV PYTHONPATH=
+ENV VIDCAP_FPS=
 COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
