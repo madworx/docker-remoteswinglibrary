@@ -19,7 +19,7 @@ test:	docker-images
 	docker run --rm -it -p 5900:5900     \
       -e RESOLUTION=640x480             \
       -v $$(pwd)/test:/home/robot       \
-      test
+      test .
 
 .PHONY: test docker-image docker-image-slim
 

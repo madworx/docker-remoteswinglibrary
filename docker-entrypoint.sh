@@ -24,6 +24,8 @@ EOF
     exit 1
 fi
 
+: ${VIDCAP_FPS:=30}
+
 echo "Starting with resolution: ${RESOLUTION}."
 
 cd /home/robot
@@ -32,12 +34,12 @@ if [ "$1" == "-c" ] ; then
     shift
     CMD="$*"
 else
-    CMD="/usr/local/bin/robot -d output '$@'"
+    CMD="/usr/local/bin/robot -d output $*"
 fi
 
 xvfb-run -s "-screen 0 ${RESOLUTION}" -a bash -c "
   twm &
-  ffmpeg -video_size ${FFMPEGRES} -f x11grab -i \${DISPLAY} -loglevel panic -hide_banner -framerate 30 -vcodec libx264 -preset ultrafast -qp 0 -pix_fmt yuv444p output/video-capture.mkv &
+  ffmpeg -video_size ${FFMPEGRES} -f x11grab -i \${DISPLAY} -loglevel panic -hide_banner -framerate ${VIDCAP_FPS} -vcodec libx264 -preset ultrafast -qp 0 -pix_fmt yuv444p output/video-capture.mkv &
   x11vnc -nolookup -forever -usepw </dev/null >/dev/null 2>&1 &
   eval ${CMD}
   ROBOT_STATUS=\$?
