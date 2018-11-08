@@ -1,5 +1,7 @@
 FROM ubuntu:bionic AS build
 
+MAINTAINER Martin Kjellstrand <martin.kjellstrand@madworx.se>
+
 ARG FLAVOUR=""
 ARG APT_MIRROR="ftp.acc.umu.se"
 ARG DEPENDENCIES="curl python3-pip python3-setuptools  \
@@ -36,9 +38,6 @@ RUN apt-get autoremove -y                     \
 RUN useradd -m robot
 USER robot
 
-FROM ubuntu:bionic
-MAINTAINER Martin Kjellstrand <martin.kjellstrand@madworx.se>
-COPY --from=build / /
 ENV RESOLUTION="1024x768x16"
 ENV PYTHONPATH=
 COPY docker-entrypoint.sh /

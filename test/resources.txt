@@ -1,0 +1,17 @@
+*** Keywords ***
+Start Test Application
+   Start Application  Test  java -cp /home/robot MinimalSwingApplication   30    close_security_dialogs=True
+   Select Main Window
+   
+Present Dialup Dialog
+   Push Button              OK
+   Dialog Should Be Open    Dialup
+   Select Dialog            Dialup
+   List Components In Context
+   Focus to Component       0
+
+Close Application
+   Push Button        OK
+   Select Main Window
+   Ensure Application Should Close   5s   Push Button   Exit   
+ 

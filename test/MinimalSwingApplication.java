@@ -6,25 +6,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
-/** 
- Simple harness for testing GUI code.
- <P>To use this class, edit the code to suit your needs.  
-*/
 public final class MinimalSwingApplication {
   
-  /** 
-   Build and display minimal GUI.
-   
-   <P>The GUI has a label and an OK button.
-   The OK button launches a simple message dialog.
-   No menu is included.
-  */
   public static void main(String... aArgs){
     MinimalSwingApplication app = new MinimalSwingApplication();
     app.buildAndDisplayGui();
   }
-  
-  // PRIVATE
 
   private void buildAndDisplayGui(){
     JFrame frame = new JFrame("Test Frame"); 
@@ -37,23 +24,31 @@ public final class MinimalSwingApplication {
   private void buildContent(JFrame aFrame){
     JPanel panel = new JPanel();
     panel.add(new JLabel("Hello"));
-    JButton ok = new JButton("OK");
+    JButton ok  = new JButton("OK");
+    JButton exit = new JButton("Exit");
     ok.addActionListener(new ShowDialog(aFrame));
     panel.add(ok);
+    exit.addActionListener(new CloseListener());
+    panel.add(exit);
     aFrame.getContentPane().add(panel);      
   }
-  
-  private static final class ShowDialog implements ActionListener {
-    /** Defining the dialog's owner JFrame is highly recommended. */
-    ShowDialog(JFrame aFrame){
-      fFrame = aFrame;
-    }
-    @Override public void actionPerformed(ActionEvent aEvent) {
-       JOptionPane.showMessageDialog(fFrame,
-                                     "This is a dialog",
-                                     "Dialup",
-                                     JOptionPane.INFORMATION_MESSAGE);
-    }
-    private JFrame fFrame;
-  }
+   
+   private static final class CloseListener implements ActionListener{
+      public void actionPerformed(ActionEvent e) {
+         System.exit(0);
+      }
+   }
+   
+   private static final class ShowDialog implements ActionListener {
+      ShowDialog(JFrame aFrame){
+         fFrame = aFrame;
+      }
+      @Override public void actionPerformed(ActionEvent aEvent) {
+         JOptionPane.showMessageDialog(fFrame,
+                                       "This is a dialog",
+                                       "Dialup",
+                                       JOptionPane.INFORMATION_MESSAGE);
+      }
+      private JFrame fFrame;
+   }
 }
