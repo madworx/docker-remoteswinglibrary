@@ -11,7 +11,7 @@ before_install:
    - sudo service docker restart
 
 install:
-  - docker build -t madworx/remoteswinglibrary:latest --squash .
+  - make DOCKER_BUILD_OPTS='--squash'
 
 script:
   - make test
