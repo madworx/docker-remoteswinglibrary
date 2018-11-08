@@ -28,17 +28,19 @@ RUN pip3 install -r requirements.txt && rm requirements.txt
 
 RUN if [ "${FLAVOUR}" != "slim" ] ; then \
       apt-get install -y ffmpeg --no-install-recommends ; \
-    fi 
+    fi
 
 RUN apt-get autoremove -y                     \
     && apt-get clean                          \
     && sed -i 's/^/#/' /etc/apt/sources.list  \
-    && apt-get update
+    && apt-get update                         \
+    && sed -i 's/^#//' /etc/apt/sources.list
 
 RUN useradd -m robot
 USER robot
 
-ENV RESOLUTION="1024x768x16"
+ENV RESOLUTION="1024x768x24"
 ENV PYTHONPATH=
+ENV VIDCAP_FPS=
 COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
