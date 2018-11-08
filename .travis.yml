@@ -7,9 +7,11 @@ services:
 
 before_install:
    - source <(curl https://raw.githubusercontent.com/madworx/cd-ci-glue/master/src/cd-ci-glue.bash)
+   - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
+   - sudo service docker restart
 
 install:
-  - true
+  - docker build -t madworx/remoteswinglibrary:latest --squash .
 
 script:
   - make test
