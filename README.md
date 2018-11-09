@@ -2,6 +2,8 @@
 
 ## Dockerized version of the madworx Robot Framework RemoteSwingLibrary
 
+Available at Docker hub as [madworx/remoteswinglibrary](https://hub.docker.com/r/madworx/remoteswinglibrary/).
+
 ### Source
 
 Source code is hosted on [github](https://github.com/madworx/docker-remoteswinglibrary).
