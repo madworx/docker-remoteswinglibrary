@@ -8,16 +8,18 @@ ARG DEPENDENCIES="curl python3-pip python3-setuptools  \
                   python3-wheel openjdk-8-jre xvfb twm \
                   x11vnc menu scrot"
 
-RUN sed -e "s#archive.ubuntu.com#${APT_MIRROR}#g" \
-        -i /etc/apt/sources.list                  \
-    && apt-get update -qqy
+RUN [ ! -z "${APT_MIRROR}" ] && \
+      sed -e "s#archive.ubuntu.com#${APT_MIRROR}#g" \
+          -i /etc/apt/sources.list || true
+
+RUN apt-get update -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y -qq          \
                                    --no-install-recommends \
                                    install ${DEPENDENCIES}
 
 ARG RSL_REPO="https://github.com/madworx/remoteswinglibrary"
-ARG RSL_VERSION="2.2.2mwx3"
+ARG RSL_VERSION="2.2.2mwx4"
 
 RUN cd /usr/local/lib \
     && curl -LsfO "${RSL_REPO}/releases/download/${RSL_VERSION}/remoteswinglibrary-${RSL_VERSION}.jar"
