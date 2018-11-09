@@ -3,7 +3,7 @@ all:	docker-image docker-image-slim
 docker-images:	docker-image docker-image-slim
 
 docker-image:
-	docker build -t madworx/remoteswinglibrary:latest .
+	docker build -t madworx/remoteswinglibrary:latest $(DOCKER_BUILD_OPTS) .
 
 docker-image-slim:
 	docker build -t madworx/remoteswinglibrary:slim --build-arg FLAVOUR=slim .
